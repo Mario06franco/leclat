@@ -1,0 +1,69 @@
+.admin-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .admin-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #faf3f0;
+    padding: 5px 20px;
+    border-bottom: 1px solid #e0dede;
+  }
+  
+  .logo-admin {
+    
+    font-weight: bold;
+    color: #a47148;
+    height: 3em;
+  }
+  
+  .admin-nav {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .admin-nav a {
+    text-decoration: none;
+    color: #444;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .admin-nav a:hover {
+    background-color: #f0e0dc;
+  }
+  
+  .admin-nav .active {
+    background-color: #e8c3b9;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .admin-main-content {
+    padding: 20px;
+    background-color: #fff8f5;
+    flex: 1;
+  }
+
+  .admin-sidebar {
+    background-color: #f5f5f5;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .admin-sidebar h2 {
+    margin-bottom: 10px;
+  }
+  
+  .admin-sidebar nav {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  

@@ -1,0 +1,80 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fuente general del sitio */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Encabezado general (navbar + hero si aplica) */
+.header {
+  position: relative;
+  width: 100%;
+  height: 120px; /* Altura de la navbar */
+}
+
+/* Navbar fija en la parte superior */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  padding: 0px 40px;
+  background-color: #f4f4dc; /* Color claro estilo Leclat */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Logo dentro de la navbar */
+.navbar .logo img {
+  height: 175px;
+  margin-top: -38px;
+  margin-left: -30px;
+  object-fit: contain;
+}
+
+/* Lista de navegación */
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+
+/* Enlaces de navegación */
+.navbar nav ul li a {
+  text-decoration: none;
+  color: #cbb353; /* Rosa tenue Leclat */
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+
+
+
+
+.navbar nav ul li a:hover {
+  color: #ff7f50; /* Coral suave al pasar el mouse */
+}
+
+.navbar nav ul li a::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #cbb353;
+  margin: 9px auto 0;
+}
+
+/* Ajustes para el logo general si se usa fuera de navbar */
+.logo img {
+  width: auto;
+  object-fit: contain;
+}

@@ -1,0 +1,36 @@
+.sidebar {
+    position: fixed;
+    top: -25px;
+    left: 0;
+    height: 104vh;
+    width: 60px;
+    background-color: #f9f9ff;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 145px;
+  }
+  
+  .sidebar-icon {
+    margin: 20px 0;
+    font-size: 22px;
+    color: #666;
+    transition: 0.3s;
+  }
+  
+  .sidebar-icon:hover {
+    color: #6a3dad;
+    transform: scale(1.2);
+  }
+  
+  .logout {
+    margin-top: auto;
+    margin-bottom: 20px;
+    background: none;
+    border: none;
+  }
+  
+  .sidebar-icon{
+    background-color: transparent;
+  }

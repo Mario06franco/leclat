@@ -1,0 +1,154 @@
+:root {
+  --leclat-pink: #f8c6d8; /* Color rosa claro personalizado */
+  --leclat-dark: #4a4a4a;
+  --leclat-bg: linear-gradient(135deg, #f9d6e2, #f8c6d8);
+}
+
+.modal-auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.auth-container {
+  position: relative;
+  width: 400px;
+  background: var(--leclat-bg);
+  border-radius: 25px;
+  padding: 40px 30px;
+  color: var(--leclat-dark);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.auth-toggle {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  
+  border-radius: 30px;
+  padding: 5px;
+  
+}
+
+.auth-toggle span {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  padding: 4px 0;
+  color: var(--leclat-dark);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.btn-close {
+  position: absolute;
+    top: 2px;
+    right: 11px;
+    background: transparent;
+    color: black;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 3;
+    width: 49px;
+    height: 38px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  
+  margin-top: 10px;
+  z-index: 2;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--leclat-dark);
+  padding: 10px;
+  color: var(--leclat-dark);
+  outline: none;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+label {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  color: var(--leclat-dark);
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+label a {
+  margin-left: 5px;
+  color: #d36d8f;
+  text-decoration: none;
+}
+
+button[type="submit"] {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #d36d8f;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #fce2ea;
+}
+
+.social-login {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+label input[type="checkbox"] {
+  margin-right: 8px; 
+  ;
+}
+
+.social-icons {
+  display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
+h2{
+  margin-bottom: 10px;
+}

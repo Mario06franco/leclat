@@ -1,0 +1,93 @@
+.usuarios-admin {
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .usuarios-admin h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .toolbar button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .toolbar button:hover {
+    background-color: #0056b3;
+  }
+  
+  .page-size-selector select {
+    margin-left: 8px;
+    padding: 4px;
+  }
+  
+  .usuarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .usuarios-table th,
+  .usuarios-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .usuarios-table th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+  }
+  
+  .usuarios-table td button {
+    margin: 0 4px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .usuarios-table td button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .usuarios-table td button:last-child {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .loading {
+    font-style: italic;
+  }
+  
+  .pagination {
+    margin-top: 15px;
+    text-align: right;
+  }
+  
+  .pagination button {
+    padding: 6px 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination button:hover {
+    background-color: #5a6268;
+  }
+  

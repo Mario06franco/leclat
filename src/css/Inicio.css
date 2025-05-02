@@ -1,0 +1,435 @@
+
+
+inicio {
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* SECCIÓN: Bienvenida 
+   
+   .bienvenida {
+    .bienvenida {
+        background-color: #fae3e3;
+        text-align: center;
+        padding: 6rem 2rem 5rem 2rem; 
+      }
+      
+  }
+  
+  .bienvenida h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    font-family: "Playfair Display ", serif;
+  }
+  
+  .bienvenida h2 {
+    color: #7a7070;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .btn-principal {
+    margin-top: 1.5rem;
+    background-color: #d49797;
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  } 
+  */
+  .bienvenida {
+    background-image: url('../img/rostro.jpg'); /* Usa una imagen facial atractiva como en la referencia */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: left;
+    padding: 4rem 3rem;
+    position: relative;
+  }
+  
+  .bienvenida::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Oscurece imagen para contraste de texto */
+    z-index: 0;
+  }
+  
+  .bienvenida h1,
+  .bienvenida h2,
+  .bienvenida .btn-principal {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .bienvenida h1 {
+    font-size: 3.5rem;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    line-height: 1.2;
+    max-width: 500px;
+  }
+  
+  .bienvenida h2 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-top: 1rem;
+    color: #f0e6e6;
+  }
+  
+  .btn-principal {
+    margin-top: 2rem;
+    background-color: #d49797;
+    color: white;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* SECCIÓN: Quiénes Somos 
+    background-color: #f4f4dc;
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .quienes-somos h2 {
+    color: #2e2e2e;
+    font-size: 2rem;
+  }
+  
+  .quienes-somos p {
+    max-width: 700px;
+    margin: 1rem auto;
+    color: #5a5a5a;
+    line-height: 1.6;
+  }
+  */
+
+  .quienes-somos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 2rem;
+    background-color: #fdf9f9;
+    text-align: center;
+  }
+  .titulo-quienes {
+    font-size: 2.5rem;
+    color: #cbb353;
+    margin-bottom: 0.5rem;
+    font-family: "Playfair Display", serif;
+  }
+  .titulo-quienes::after {
+    content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #cbb353;
+  margin: 15px auto 0;
+  }
+
+  .subtitulo-quienes {
+    font-size: 1.4rem;
+    color: #cbb353;
+    margin-bottom: 2rem;
+  }
+
+
+.quienes-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.foto-central img {
+  width: 250px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.texto-lateral {
+  max-width: 250px;
+  text-align: justify;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+  
+  .quienes-somos img {
+    width: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .quienes-somos-texto {
+    max-width: 600px;
+  }
+  
+  .quienes-somos-texto h2 {
+    font-size: 2rem;
+    color: #2e2e2e;
+    margin-bottom: 1rem;
+  }
+  
+  .quienes-somos-texto p {
+    color: #5a5a5a;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  /* SECCIÓN: Tratamientos */
+/* CSS para la sección de tratamientos */
+.tratamientos {
+  padding: 2rem 2rem;
+  background-color: #f4f4dc;
+  text-align: center;
+}
+
+.tratamientos h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #cbb353;
+  position: relative;
+  display: inline-block;
+}
+.tratamientos h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #cbb353;
+  margin: 15px auto 0;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  width: 300px; /* Ancho fijo */
+  height: 350px; /* Alto fijo */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  background: white;
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 250px; /* Altura fija para la imagen */
+  object-fit: cover; /* Esto asegura que la imagen cubra el espacio manteniendo proporciones */
+  object-position: center; /* Centra la imagen */
+  transition: opacity 1s ease-in-out;
+}
+
+.card p {
+  height: 100px; /* Altura fija para el texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: white;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+  
+  /* SECCIÓN: Contacto 
+  .contacto {
+    background-color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .contacto h2 {
+    font-size: 2rem;
+    color: #2e2e2e;
+    margin-bottom: 1rem;
+  }
+  
+  .contacto form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .contacto input,
+  .contacto textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .contacto textarea {
+    resize: vertical;
+    height: 120px;
+  }
+  
+  .contacto button {
+    background-color: #d49797;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  */
+
+  .contacto {
+    width: 100%;
+    padding: 2rem 0;
+    background-color: white; /* Fondo rosa claro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .contacto-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .contacto h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #cbb353;
+    position: relative;
+  }
+  
+  .contacto h2::after {
+    content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #cbb353;
+  margin: 15px auto 0;
+  }
+  
+  .contacto form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #f4f4dc;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contacto input,
+  .contacto textarea {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    
+  }
+  
+  .contacto input:focus,
+  .contacto textarea:focus {
+    border-color: #cbb353; /* Rosa para el focus */
+    box-shadow: 0 0 0 2px #cbb353;
+  }
+  
+  .contacto textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+  
+  .contacto button {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem; /* Ajusté el padding para hacerlo más pequeño */
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content; /* Hace que el botón solo ocupe el espacio necesario */
+    margin: 0 auto; /* Centra el botón horizontalmente */
+    display: block; /* Necesario para que funcione el margin auto */
+  }
+  
+  .contacto button:hover {
+    background: #ff1493;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+  }
+  .contacto p {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  /* Efecto para los placeholders */
+  .contacto input::placeholder,
+  .contacto textarea::placeholder {
+    color: #95a5a6;
+    transition: all 0.3s ease;
+  }
+  
+  .contacto input:focus::placeholder,
+  .contacto textarea:focus::placeholder {
+    color: transparent;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contacto {
+      padding: 2rem 0;
+    }
+    
+    .contacto-container {
+      padding: 0 1rem;
+    }
+    
+    .contacto form {
+      padding: 1.5rem;
+    }
+  }

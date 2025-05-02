@@ -1,0 +1,98 @@
+/* Importar las fuentes (opción con Google Fonts CDN - más ligero) */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Montserrat:wght@300&family=Raleway:wght@100..900&family=Lato:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+* {
+  font-family: var(--font-textos);
+  font-weight: 300; /* Para Montserrat Light */
+}
+
+h1, h2, h3, h4, h5, h6, .font-titulos {
+  font-family: var(--font-titulos) !important;
+  font-weight: normal;
+}
+
+/* Opcional: clases de utilidad */
+p,  input, textarea, select, button, .font-textos {
+  font-family: var(--font-textos) !important;
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+:root {
+  --font-titulos: 'Playfair Display','Cinzel','Cormorant Garamond', serif ;
+  --font-textos: 'Raleway', 'Lato', sans-serif;
+  --rosa-claro: #fcebea;
+  --rosa-principal: #d19c97;
+  --rosado-oscuro: #b98474;
+  --gris-oscuro: #333;
+  --gris-claro: #777;
+  --blanco: #ffffff;
+  --fondo: #f6e6e3;
+  --fuente-principal: 'Arial', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fuente-principal);
+  background-color: #f4f4dc;
+  color: var(--gris-oscuro);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Enlaces generales */
+a {
+  color: var(--rosa-principal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--rosado-oscuro);
+}
+
+/* Titulares */
+h1, h2, h3 {
+  font-weight: bold;
+  color: var(--gris-oscuro);
+}
+
+/* Botones globales */
+button {
+  background-color: var(--rosa-principal);
+  color: var(--blanco);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: var(--rosado-oscuro);
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+}

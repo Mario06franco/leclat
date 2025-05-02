@@ -1,0 +1,94 @@
+.historias-clinicas-admin {
+    padding: 20px;
+  }
+  
+  .toolbar {
+    margin-bottom: 20px;
+  }
+  
+  .boton-crear {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .boton-crear:hover {
+    background-color: #0056b3;
+  }
+  
+  .filtro-cedula {
+    margin-bottom: 20px;
+  }
+  
+  .filtro-cedula input {
+    padding: 8px;
+    width: 250px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .boton-buscar {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .boton-buscar:hover {
+    background-color: #218838;
+  }
+  
+  .historias-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .historias-table th, .historias-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .historias-table th {
+    background-color: #f8f9fa;
+  }
+  
+  .boton-editar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .boton-editar:hover {
+    background-color: #218838;
+  }
+  
+  .boton-ver {
+    background-color: #17a2b8;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .boton-ver:hover {
+    background-color: #117a8b;
+  }
+  
+  .loading {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
