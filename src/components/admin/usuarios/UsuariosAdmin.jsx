@@ -24,7 +24,7 @@ const UsuariosAdmin = () => {
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:5000/api/usuarios?pageSize=${pageSize}`;
+      let url = `${backendUrl}/api/usuarios?pageSize=${pageSize}`;
       if (filtro === 'habilitado') url += '&estado=true';
       if (filtro === 'deshabilitado') url += '&estado=false';
 
@@ -64,10 +64,10 @@ const UsuariosAdmin = () => {
   const handleGuardar = async () => {
     try {
       if (usuarioEditando) {
-        await axios.put(`http://localhost:5000/api/usuarios/${usuarioEditando._id}`, formData);
+        await axios.put(`${backendUrl}/api/usuarios/${usuarioEditando._id}`, formData);
       } else {
         const nuevoUsuario = { ...formData, contraseña: formData.cedula };
-        await axios.post('http://localhost:5000/api/usuarios', nuevoUsuario);
+        await axios.post(`${backendUrl}/api/usuarios`, nuevoUsuario);
       }
       fetchUsuarios();
       setModalVisible(false);
@@ -81,7 +81,7 @@ const UsuariosAdmin = () => {
 
   const handleDeshabilitar = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/usuarios/${id}/deshabilitar`);
+      await axios.put(`${backendUrl}/api/usuarios/${id}/deshabilitar`);
       fetchUsuarios();
     } catch (error) {
       console.error('Error deshabilitando usuario:', error);
@@ -90,7 +90,7 @@ const UsuariosAdmin = () => {
 
   const handleHabilitar = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/usuarios/${id}/habilitar`);
+      await axios.put(`${backendUrl}/api/usuarios/${id}/habilitar`);
       fetchUsuarios();
     } catch (error) {
       console.error('Error habilitando usuario:', error);
