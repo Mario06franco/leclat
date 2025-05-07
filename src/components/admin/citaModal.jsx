@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './citaModal.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const CitaModal = ({ citaSeleccionada, onGuardar, onCancelar }) => {
   const [formData, setFormData] = useState({
@@ -47,7 +48,6 @@ const CitaModal = ({ citaSeleccionada, onGuardar, onCancelar }) => {
   const handleSubmit = async () => {
     try {
       const dataToSend = { ...formData };
-      const backendUrl = import.meta.env.VITE_BACKEND_URL;
   
       if (citaSeleccionada && citaSeleccionada._id) {
         // ✅ EDITAR usando el _id generado por MongoDB

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ServicioDetalle.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Faciales = () => {
   const [servicios, setServicios] = useState([]);
@@ -56,7 +57,7 @@ const Faciales = () => {
     }
     
     // Si es una ruta relativa, asumimos que está en /uploads/
-    return `http://localhost:5000${imagePath}`; // Ajusta el puerto según tu backend
+    return `${backendUrl}${imagePath}`; // Ajusta el puerto según tu backend
   };
 
   if (loading) {

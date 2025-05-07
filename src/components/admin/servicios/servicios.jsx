@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import CrearServicioModal from './CrearServicioModal';
 import './servicios.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Servicios = () => {
   const [servicios, setServicios] = useState([]);
@@ -12,7 +13,7 @@ const Servicios = () => {
 useEffect(() => {
     const fetchServicios = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/servicios');
+        const response = await fetch(`${backendUrl}/api/servicios`);
         if (!response.ok) throw new Error('Error al obtener servicios');
         const data = await response.json();
         setServicios(data.data);

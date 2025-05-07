@@ -1,5 +1,6 @@
 import React, {useEffect ,useState } from 'react';
 import './CrearHistoriaClinica.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 const getInitialFormData = (data) => {
@@ -162,8 +163,8 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
       });
   
       const url = formData._id
-        ? `http://localhost:5000/api/historias/${formData._id}`
-        : 'http://localhost:5000/api/historias';
+        ? `${backendUrl}/api/historias/${formData._id}`
+        : '${backendUrl}/api/historias';
       const method = formData._id ? 'PUT' : 'POST';
   
       const response = await fetch(url, {
