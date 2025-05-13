@@ -1,4 +1,10 @@
-
+a {
+  color:#b9b436;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 inicio {
     font-family: 'Segoe UI', sans-serif;
@@ -122,7 +128,7 @@ inicio {
   }
   .titulo-quienes {
     font-size: 2.5rem;
-    color: #cbb353;
+    color: #b9b436;
     margin-bottom: 0.5rem;
     font-family: "Playfair Display", serif;
   }
@@ -131,13 +137,13 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #cbb353;
-  margin: 15px auto 0;
+  background: #b9b436;
+  margin: 0px auto 0;
   }
 
   .subtitulo-quienes {
     font-size: 1.4rem;
-    color: #cbb353;
+    color: #b9b436;
     margin-bottom: 2rem;
   }
 
@@ -151,8 +157,8 @@ inicio {
 }
 
 .foto-central img {
-  width: 250px;
-  border-radius: 12px;
+  
+  
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -166,10 +172,16 @@ inicio {
   
   .quienes-somos img {
     width: 200px;
-    border-radius: 8px;
+    border-radius: 15px;
     object-fit: cover;
+    border: 3px solid #b9b436;
+    
   }
   
+  .foto-central{
+    
+    border-color: #2e2e2e;
+  }
   .quienes-somos-texto {
     max-width: 600px;
   }
@@ -197,7 +209,7 @@ inicio {
 .tratamientos h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #cbb353;
+  color: #b9b436;
   position: relative;
   display: inline-block;
 }
@@ -206,8 +218,8 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #cbb353;
-  margin: 15px auto 0;
+  background: #b9b436;
+  margin: 0px auto 0;
 }
 
 .cards {
@@ -231,6 +243,7 @@ inicio {
   color: #333;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 
 .card:hover {
@@ -332,7 +345,7 @@ inicio {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #cbb353;
+    color: #b9b436;
     position: relative;
   }
   
@@ -341,8 +354,8 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #cbb353;
-  margin: 15px auto 0;
+  background: #b9b436;
+  margin: 0px auto 0;
   }
   
   .contacto form {
@@ -368,8 +381,8 @@ inicio {
   
   .contacto input:focus,
   .contacto textarea:focus {
-    border-color: #cbb353; /* Rosa para el focus */
-    box-shadow: 0 0 0 2px #cbb353;
+    border-color: #b9b436; /* Rosa para el focus */
+    box-shadow: 0 0 0 2px #b9b436;
   }
   
   .contacto textarea {

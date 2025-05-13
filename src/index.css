@@ -49,9 +49,11 @@ body {
 
 /* Enlaces generales */
 a {
-  color: var(--rosa-principal);
+  color:#b9b436;
   text-decoration: none;
   transition: color 0.3s ease;
+  font-size: 20px;
+  font-weight: bold;
 }
 a:hover {
   color: var(--rosado-oscuro);

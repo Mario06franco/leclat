@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ServicioDetalle.css';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Faciales = () => {
   const [servicios, setServicios] = useState([]);
@@ -49,6 +48,8 @@ const Faciales = () => {
 
   // Función para construir la URL completa de la imagen
   const getImageUrl = (imagePath) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    
     if (!imagePath) return '/img/servicio-default.jpg';
     
     // Si la imagen ya es una URL completa
@@ -57,7 +58,7 @@ const Faciales = () => {
     }
     
     // Si es una ruta relativa, asumimos que está en /uploads/
-    return `${backendUrl}${imagePath}`; // Ajusta el puerto según tu backend
+    return `${backendUrl}${imagePath}`;
   };
 
   if (loading) {

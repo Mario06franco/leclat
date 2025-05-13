@@ -93,8 +93,8 @@ const Inicio = () => {
           
           <div className="quienes-layout">
             <div className="texto-lateral">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus diam vel odio placerat.</p>
+              <p>Hola, soy Tatiana Rojas, cosmetóloga y esteticista integral con formación profesional y experiencia en el cuidado de la piel y la estética facial. Mi enfoque se basa en ofrecer tratamientos personalizados, seguros y efectivos para potenciar la belleza natural y el bienestar de cada persona.</p>
+              
             </div>
 
             <div className="foto-central">
@@ -102,8 +102,8 @@ const Inicio = () => {
             </div>
 
             <div className="texto-lateral">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sapien ut odio cursus.</p>
+              <p>Trabajo de forma independiente y también soy cofundadora de L’éclat Centro Estético, donde colaboro con un equipo profesional para brindar una experiencia completa en estética integral.</p>
+              
             </div>
           </div>
         </div>
@@ -117,21 +117,21 @@ const Inicio = () => {
               src={serviciosImagenes.faciales[currentImages.faciales]} 
               alt="Tratamiento facial" 
             />
-            <p>Tratamientos faciales</p>
+            <a>Tratamientos faciales</a>
           </Link>
           <Link to="/servicios/corporales" className="card">
             <img 
               src={serviciosImagenes.corporales[currentImages.corporales]} 
               alt="Masaje relajante" 
             />
-            <p>Tratamientos Corporales</p>
+            <a>Tratamientos Corporales</a>
           </Link>
           <Link to="/servicios/relajantes" className="card">
             <img 
               src={serviciosImagenes.relajantes[currentImages.relajantes]} 
               alt="Depilación" 
             />
-            <p>Tratamientos Relajantes</p>
+            <a>Tratamientos Relajantes</a>
           </Link>
         </div>
       </section>
