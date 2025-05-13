@@ -1,26 +1,8 @@
-/* Importar las fuentes (opción con Google Fonts CDN - más ligero) */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Montserrat:wght@300&family=Raleway:wght@100..900&family=Lato:ital,wght@0,100..900;1,100..900&display=swap');
 
-
-* {
-  font-family: var(--font-textos);
-  font-weight: 300; /* Para Montserrat Light */
-}
-
-h1, h2, h3, h4, h5, h6, .font-titulos {
-  font-family: var(--font-titulos) !important;
-  font-weight: normal;
-}
-
-/* Opcional: clases de utilidad */
-p,  input, textarea, select, button, .font-textos {
-  font-family: var(--font-textos) !important;
-  color: black !important;
-  font-weight: 500 !important;
-}
-
+/* Variables */
 :root {
-  --font-titulos: 'Playfair Display','Cinzel','Cormorant Garamond', serif ;
+  --font-titulos: 'Playfair Display','Cinzel','Cormorant Garamond', serif;
   --font-textos: 'Raleway', 'Lato', sans-serif;
   --rosa-claro: #fcebea;
   --rosa-principal: #d19c97;
@@ -32,10 +14,17 @@ p,  input, textarea, select, button, .font-textos {
   --fuente-principal: 'Arial', sans-serif;
 }
 
+/* Reset general */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
@@ -47,7 +36,24 @@ body {
   overflow-x: hidden;
 }
 
-/* Enlaces generales */
+/* Tipografía */
+* {
+  font-family: var(--font-textos);
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6, .font-titulos {
+  font-family: var(--font-titulos) !important;
+  font-weight: normal;
+}
+
+p, input, textarea, select, button, .font-textos {
+  font-family: var(--font-textos) !important;
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+/* Enlaces */
 a {
   color: var(--rosa-principal);
   text-decoration: none;
@@ -57,13 +63,7 @@ a:hover {
   color: var(--rosado-oscuro);
 }
 
-/* Titulares */
-h1, h2, h3 {
-  font-weight: bold;
-  color: var(--gris-oscuro);
-}
-
-/* Botones globales */
+/* Botones */
 button {
   background-color: var(--rosa-principal);
   color: var(--blanco);
@@ -78,21 +78,77 @@ button:hover {
   background-color: var(--rosado-oscuro);
 }
 
+/* Contenedor */
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: auto;
   padding: 20px 0;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
+/* Imágenes */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Ajustes RESPONSIVE para móviles */
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    padding: 0 10px;
+  }
+
   .container {
-    width: 95%;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    text-align: center;
   }
 
   button {
     padding: 8px 16px;
     font-size: 0.9em;
+    width: 100%;
+  }
+
+  /* Ajuste opcional para menús o modales */
+  .modal, .sidebar, .footer-row, .navbar-menu {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .footer-row {
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  iframe {
+    height: 180px !important;
+  }
+
+  .footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
   }
 }

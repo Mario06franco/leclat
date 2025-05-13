@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CrearUsuario from './CrearUsuario';
 import './UsuariosAdmin.css';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const UsuariosAdmin = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -25,7 +25,7 @@ const UsuariosAdmin = () => {
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
-      let url = `${backendUrl}/api/usuarios?pageSize=${pageSize}`;
+      let url = `${import.meta.env.VITE_BACKEND_URL}/api/usuarios?pageSize=${pageSize}`;
       if (filtro === 'habilitado') url += '&estado=true';
       if (filtro === 'deshabilitado') url += '&estado=false';
 
@@ -65,10 +65,10 @@ const UsuariosAdmin = () => {
   const handleGuardar = async () => {
     try {
       if (usuarioEditando) {
-        await axios.put(`${backendUrl}/api/usuarios/${usuarioEditando._id}`, formData);
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${usuarioEditando._id}`, formData);
       } else {
         const nuevoUsuario = { ...formData, contraseña: formData.cedula };
-        await axios.post(`${backendUrl}/api/usuarios`, nuevoUsuario);
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, nuevoUsuario);
       }
       fetchUsuarios();
       setModalVisible(false);
@@ -82,7 +82,7 @@ const UsuariosAdmin = () => {
 
   const handleDeshabilitar = async (id) => {
     try {
-      await axios.put(`${backendUrl}/api/usuarios/${id}/deshabilitar`);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${id}/deshabilitar`);
       fetchUsuarios();
     } catch (error) {
       console.error('Error deshabilitando usuario:', error);
@@ -91,7 +91,7 @@ const UsuariosAdmin = () => {
 
   const handleHabilitar = async (id) => {
     try {
-      await axios.put(`${backendUrl}/api/usuarios/${id}/habilitar`);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${id}/habilitar`);
       fetchUsuarios();
     } catch (error) {
       console.error('Error habilitando usuario:', error);

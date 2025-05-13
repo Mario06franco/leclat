@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './servicios1.css';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const CrearServicioModal = ({ show, onClose, onCreate }) => {
   const [formData, setFormData] = useState({
@@ -97,7 +97,7 @@ const CrearServicioModal = ({ show, onClose, onCreate }) => {
         const formDataImg = new FormData();
         formDataImg.append('imagen', imagen);
   
-        const uploadResponse = await axios.post(`${backendUrl}/api/upload`, formDataImg, {
+        const uploadResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/upload`, formDataImg, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -114,7 +114,7 @@ const CrearServicioModal = ({ show, onClose, onCreate }) => {
       };
   
       // Enviar los datos al backend
-      const response = await axios.post(`${backendUrl}/api/servicios`, servicioData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/servicios`, servicioData);
   
       // Llamar a la función onCreate para actualizar la lista de servicios
       onCreate(response.data.data);

@@ -6,7 +6,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import PlantillaHistoriaPDF from './PlantillaHistoriaPDF';
 import { createRoot } from 'react-dom/client';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const HistoriasClinicasAdmin = () => {
   const [historias, setHistorias] = useState([]);
@@ -23,7 +23,9 @@ const HistoriasClinicasAdmin = () => {
   const fetchHistorias = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('${backendUrl}/api/historias');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/historias`);
+
+
       setHistorias(response.data.data);
     } catch (error) {
       console.error('Error obteniendo historias clínicas:', error);
@@ -39,7 +41,7 @@ const HistoriasClinicasAdmin = () => {
   
     try {
       // Verificar si el usuario está registrado
-      const userResponse = await fetch(`${backendUrl}/api/citas/verificar-usuario?cedula=${cedulaInput}`);
+      const userResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar-usuario?cedula=${cedulaInput}`);
       const userData = await userResponse.json();
   
       if (userResponse.ok && userData.usuarios) {

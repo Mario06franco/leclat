@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './citaModal.css';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const CitaModal = ({ citaSeleccionada, onGuardar, onCancelar }) => {
   const [formData, setFormData] = useState({
@@ -51,11 +51,11 @@ const CitaModal = ({ citaSeleccionada, onGuardar, onCancelar }) => {
   
       if (citaSeleccionada && citaSeleccionada._id) {
         // ✅ EDITAR usando el _id generado por MongoDB
-        await axios.put(`${backendUrl}/api/citas/${citaSeleccionada._id}`, dataToSend);
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/citas/${citaSeleccionada._id}`, dataToSend);
         alert('Cita actualizada con éxito');
       } else {
         // ✅ CREAR nueva cita
-        await axios.post(`${backendUrl}/api/citas/agendar`, dataToSend);
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/citas/agendar`, dataToSend);
         alert('Cita creada con éxito');
       }
   

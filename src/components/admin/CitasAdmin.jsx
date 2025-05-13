@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './CitasAdmin.css';
 import CrearCita from './citaModal'; // Este es tu modal
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const CitasAdmin = () => {
   const [citas, setCitas] = useState([]);
@@ -17,7 +17,7 @@ const CitasAdmin = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token'); // 👈 O sessionStorage si lo guardaste allí
-      let url = `${backendUrl}/api/citas`;
+      let url = `${import.meta.env.VITE_BACKEND_URL}/api/citas`;
       if (filtro !== 'todas') {
         url += `?estado=${filtro}`;
       }
@@ -60,7 +60,7 @@ const CitasAdmin = () => {
   
     try {
       const response = await fetch(
-        `${backendUrl}/api/citas/verificar-usuario?cedula=${cedulaInput}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar-usuario?cedula=${cedulaInput}`
       );
       const data = await response.json();
   
@@ -81,7 +81,7 @@ const CitasAdmin = () => {
 
   const handleCancelar = async (id) => {
     try {
-      await axios.put(`${backendUrl}/api/citas/${id}/cancelar`);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/citas/${id}/cancelar`);
       fetchCitas();
     } catch (error) {
       console.error('Error cancelando cita:', error);
@@ -99,7 +99,7 @@ const CitasAdmin = () => {
 
   const handleActivar = async (id) => {
     try {
-      await axios.put(`${backendUrl}/api/citas/${id}/activar`);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/citas/${id}/activar`);
       fetchCitas();
     } catch (error) {
       console.error('Error activando cita:', error);

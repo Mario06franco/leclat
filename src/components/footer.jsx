@@ -1,5 +1,7 @@
 import React from 'react';
 import '../css/Footer.css'; // Asegúrate de tener este archivo con los estilos
+import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
   return (
@@ -9,9 +11,9 @@ const Footer = () => {
           <div className="footer-col">
             <h6 className="footer-heading">Información</h6>
             <ul className="footer-link">
-              <li><a href="#">Inicio</a></li>
-              <li><a href="#">Quiénes Somos</a></li>
-              <li><a href="#">Tratamientos</a></li>
+              <li><Link to="/">Inicio</Link></li>
+              <li><Link to="/QuienesSomos">Quiénes Somos</Link></li>
+              <li><Link to="/servicios">Servicios</Link></li>
               <li><a href="#">Productos</a></li>
             </ul>
           </div>
