@@ -35,7 +35,7 @@ body {
 /* Logo dentro de la navbar */
 .navbar .logo img {
   height: 162px;
-  margin-top: -12px;
+  
   object-fit: contain;
 }
 
