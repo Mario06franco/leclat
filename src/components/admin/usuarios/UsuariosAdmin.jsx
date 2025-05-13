@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CrearUsuario from './CrearUsuario';
 import './UsuariosAdmin.css';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const UsuariosAdmin = () => {
   const [usuarios, setUsuarios] = useState([]);
