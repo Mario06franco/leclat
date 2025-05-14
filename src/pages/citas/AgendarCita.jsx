@@ -38,52 +38,50 @@ const AgendarCita = ({ onClose }) => {
   }, [fecha]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!fecha || !hora || !servicio) {
-      setMensaje('Selecciona fecha, hora y servicio');
+  if (!fecha || !hora || !servicio) {
+    setMensaje('Selecciona fecha, hora y servicio');
+    return;
+  }
+
+  try {
+    // Verificar disponibilidad
+    const verificar = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar`, {
+      params: { fecha, hora }
+    });
+
+    if (verificar.data.existe) {
+      setMensaje('❌ Esta hora ya está ocupada');
       return;
     }
 
-    try {
-      const verificar = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar`, {
-        params: { fecha, hora }
-      });
+    // Preparar datos según el modelo
+    const citaData = {
+      nombre: user?.nombre || 'Nombre no proporcionado',
+      cedula: user?.cedula || 'Sin cédula',
+      fecha: typeof fecha === 'string' ? fecha : fecha.toISOString().split('T')[0], // Formato YYYY-MM-DD
+      hora,
+      servicio: typeof servicio === 'string' ? servicio : servicio._id || servicio.nombre,
+      limitacion: tieneLimitacion ? limitacionTexto : undefined, // undefined en lugar de string vacío
+      // userId: user?.cedula || user?.email // Opcional: eliminar o descomentar según necesidad
+    };
 
-      if (verificar.data.existe) {
-        setMensaje('❌ Esta hora ya está ocupada');
-        return;
-      }
+    console.log('Datos a enviar:', citaData);
 
-      const citaData = {
-        userId: user?.cedula || user?.email,
-        nombre: user?.nombre || '',
-        cedula: user?.cedula || '',
-        fecha,
-        hora,
-        servicio,
-        estado: 'activa',
-        limitacion: tieneLimitacion ? limitacionTexto : ''
-      };
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/citas/agendar`,
+      citaData
+    );
 
-      console.log('Cita que se enviará:', citaData);
+    setMensaje('✅ Cita agendada con éxito');
+    setTimeout(() => onClose(), 2000);
 
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/citas/agendar`, citaData);
-
-      setMensaje('✅ Cita agendada con éxito. Recuerda llegar 15 minutos antes.');
-      setTimeout(() => {
-        setMensaje('');
-        onClose();
-      }, 2000);
-
-    } catch (error) {
-      console.error('Error al agendar la cita:', error);
-      setMensaje(`❌ ${error.response?.data?.error || 'Error al agendar la cita'}`);
-    
-    
-    }
-  };
-
+  } catch (error) {
+    console.error('Error completo:', error.response?.data || error);
+    setMensaje(`❌ ${error.response?.data?.error || 'Error al agendar la cita'}`);
+  }
+};
   if (!user) {
     return (
       <div className="modal-auth">

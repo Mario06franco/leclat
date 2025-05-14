@@ -1,10 +1,14 @@
 .quienes-container {
     padding: 0rem;
-    background-color: #fff0f5;
+    background-color: #fdf9f9;
     color: #000000;
     font-family: 'playfair', sans-serif;
   }
   
+  button{
+    background-color: #cbb353;
+ 
+  }
   .intro {
     text-align: center;
   }
@@ -45,7 +49,7 @@
     width: 80px;
     height: 3px;
     background: #cbb353;
-    margin: 15px auto 0;
+    margin: 0px auto 0;
   }
   
   .intro-text {
@@ -94,13 +98,13 @@
   .cards {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: inherit;
     gap: 2rem;
     margin-top: 1.5rem;
   }
   
   .card {
-    background: #ffffff;
+    background: #fdf9f9;;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     padding: 1rem;
@@ -141,7 +145,7 @@
 
   .profesionales-section {
     padding: 2rem 0;
-    background-color: #f9f9f9;
+    background-color: #f8f5e9;;
   }
   
   .profesionales-container {
@@ -163,7 +167,7 @@
     width: 80px;
     height: 3px;
     background: #cbb353;
-    margin: 20px auto 0;
+    margin: 0px auto 0;
   }
   
   .profesionales-grid {
@@ -196,6 +200,7 @@
     position: relative;
     height: 300px;
     overflow: hidden;
+    margin: 1rem;
   }
   
   .profesional-img {
@@ -257,7 +262,7 @@
   /* Sección Misión-Visión-Intereses */
 .mision-vision-intereses {
   padding: 2rem 0;
-  background-color: #fff0f5;
+  background-color: #fdf9f9;
   font-family: 'playfair', sans-serif;
 }
 
@@ -314,7 +319,7 @@
   width: 60px;
   height: 2px;
   background: #cbb353;
-  margin: 10px 0 15px;
+  margin: 0px auto 0;
 }
 
 .mision-vision-intereses p {

@@ -71,7 +71,10 @@ const QuienesSomos = () => {
         <h2>Misión</h2>
         <div className="divider"></div>
         <p>
-          Brindar servicios estéticos personalizados de alta calidad que promuevan el bienestar físico y emocional de nuestros clientes, mediante el uso de técnicas modernas y la atención profesional de nuestro equipo.
+          Brindar un servicio personalizado y profesional en estética facial, 
+          enfocado en el cuidado de la piel mediante tratamientos efectivos, 
+          seguros y visibles. Mi propósito es acompañar a cada persona en su proceso de bienestar, 
+          promoviendo la autoestima y la salud integral en un ambiente de respeto, confianza y calidez.
         </p>
       </div>
       
@@ -80,7 +83,9 @@ const QuienesSomos = () => {
         <h2>Visión</h2>
         <div className="divider"></div>
         <p>
-          Ser reconocidos como el centro estético líder en Colombia por nuestra excelencia en el servicio, innovación constante y compromiso con la salud y belleza de nuestros clientes.
+          Consolidarme como una profesional de referencia en estética facial, 
+          destacada por ofrecer resultados visibles, atención cercana y un compromiso 
+          genuino con la salud y el bienestar integral de cada persona.
         </p>
       </div>
     </div>
@@ -99,10 +104,7 @@ const QuienesSomos = () => {
             <span className="item-icon">✓</span>
             <span>Innovación constante en tratamientos estéticos</span>
           </li>
-          <li className="interes-item">
-            <span className="item-icon">✓</span>
-            <span>Formación continua de nuestro equipo profesional</span>
-          </li>
+          
           <li className="interes-item">
             <span className="item-icon">✓</span>
             <span>Uso de productos de la más alta calidad</span>

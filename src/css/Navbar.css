@@ -50,7 +50,7 @@ body {
 /* Enlaces de navegación */
 .navbar nav ul li a {
   text-decoration: none;
-  color: #b9b436; 
+  color: #cbb353; 
   font-size: 20px;
   transition: color 0.3s ease;
 }
@@ -68,7 +68,7 @@ body {
   display: block;
   
   height: 3px;
-  background: #b9b436;
+  background: #cbb353;
   
 }
 

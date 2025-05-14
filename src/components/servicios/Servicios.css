@@ -1,7 +1,7 @@
 /* Estilos base que ya tenías */
 .servicios-container {
   
-  background-color: #fff0f5;
+  background-color: #fdf9f9;
   text-align: center;
   font-family: 'Playfair', sans-serif;
 }
@@ -19,7 +19,7 @@
   width: 80px;
   height: 3px;
   background: #cbb353;
-  margin: 15px auto 0;
+  margin: 0px auto 0;
 }
 
 .descripcion-servicios {
@@ -40,7 +40,7 @@
 .categoria {
   background: #fff;
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-decoration: none;
   color: #333;
@@ -107,7 +107,7 @@
 /* Estilos nuevos para la galería de resultados */
 .galeria-resultados {
   padding: 0.5rem 0;
-  background-color: #fff9fb;
+  background-color: #f8f5e9;
 }
 
 .titulo-galeria {
@@ -123,7 +123,7 @@
   width: 80px;
   height: 3px;
   background: #cbb353;
-  margin: 15px auto 0;
+  margin: 0px auto 0;
 }
 
 .grid-galeria {

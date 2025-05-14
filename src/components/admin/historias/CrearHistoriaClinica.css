@@ -1,7 +1,7 @@
 /* Estilos base y variables */
 :root {
-  --primary-color: #4a6fa5;
-  --secondary-color: #6b8cae;
+  --primary-color: #cbb353;
+  --secondary-color: #cbb353;
   --accent-color: #ff7e5f;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
@@ -114,7 +114,7 @@
 }
 
 .accordion-header:hover {
-  background-color: #5a7cbe;
+  background-color: #cbb353;
 }
 
 .accordion-header::after {
@@ -165,7 +165,7 @@ select,
 textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ced4da;
+  border: 1px solid #cbb353;
   border-radius: var(--border-radius);
   font-size: 1rem;
   transition: var(--transition);
@@ -180,7 +180,7 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+  box-shadow: 0 0 0 1px #cbb353;
 }
 
 textarea {
@@ -240,12 +240,12 @@ button[type="button"]:hover {
 }
 
 button[type="submit"] {
-  background-color: var(--accent-color);
+  background-color: #cbb353;
   color: white;
 }
 
 button[type="submit"]:hover {
-  background-color: #ff6a45;
+  background-color: #cbb353;
   transform: translateY(-2px);
 }
 

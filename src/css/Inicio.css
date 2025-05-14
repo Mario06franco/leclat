@@ -1,5 +1,5 @@
 a {
-  color:#b9b436;
+  color:#cbb353;
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 20px;
@@ -87,7 +87,7 @@ inicio {
   
   .btn-principal {
     margin-top: 2rem;
-    background-color: #d49797;
+    background-color: #cbb353;
     color: white;
     padding: 0.8rem 2rem;
     font-size: 1rem;
@@ -95,6 +95,17 @@ inicio {
     border: none;
     cursor: pointer;
   }
+
+.nombre-usuario {
+  position: initial;
+  top: 20px;
+  right: 20px;
+  font-weight: 500;
+  color: #333;
+  font: 20px;
+}
+
+
   
   /* SECCIÓN: Quiénes Somos 
     background-color: #f4f4dc;
@@ -128,7 +139,7 @@ inicio {
   }
   .titulo-quienes {
     font-size: 2.5rem;
-    color: #b9b436;
+    color: #cbb353;
     margin-bottom: 0.5rem;
     font-family: "Playfair Display", serif;
   }
@@ -137,13 +148,13 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #b9b436;
+  background: #cbb353;
   margin: 0px auto 0;
   }
 
   .subtitulo-quienes {
     font-size: 1.4rem;
-    color: #b9b436;
+    color: #cbb353;
     margin-bottom: 2rem;
   }
 
@@ -174,7 +185,7 @@ inicio {
     width: 200px;
     border-radius: 15px;
     object-fit: cover;
-    border: 3px solid #b9b436;
+    border: 3px solid #cbb353;
     
   }
   
@@ -202,14 +213,14 @@ inicio {
 /* CSS para la sección de tratamientos */
 .tratamientos {
   padding: 2rem 2rem;
-  background-color: #f4f4dc;
+  background-color: #f8f5e9;
   text-align: center;
 }
 
 .tratamientos h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #b9b436;
+  color: #cbb353;
   position: relative;
   display: inline-block;
 }
@@ -218,7 +229,7 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #b9b436;
+  background: #cbb353;
   margin: 0px auto 0;
 }
 
@@ -238,7 +249,7 @@ inicio {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  background: white;
+  background: #fdf9f9;;
   text-decoration: none;
   color: #333;
   display: flex;
@@ -331,7 +342,7 @@ inicio {
   .contacto {
     width: 100%;
     padding: 2rem 0;
-    background-color: white; /* Fondo rosa claro */
+    background-color: #fdf9f9; /* Fondo rosa claro */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
@@ -345,7 +356,7 @@ inicio {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #b9b436;
+    color: #cbb353;
     position: relative;
   }
   
@@ -354,7 +365,7 @@ inicio {
   display: block;
   width: 80px;
   height: 3px;
-  background: #b9b436;
+  background: #cbb353;
   margin: 0px auto 0;
   }
   
@@ -362,27 +373,29 @@ inicio {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    background: #f4f4dc;
+    background: #f8f5e9;
     padding: 2.5rem;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid #cbb353; /* Borde del formulario */
   }
   
   .contacto input,
   .contacto textarea {
     padding: 1rem;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #cbb353;
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
     outline: none;
+    background-color: transparent;
     
   }
   
   .contacto input:focus,
   .contacto textarea:focus {
-    border-color: #b9b436; /* Rosa para el focus */
-    box-shadow: 0 0 0 2px #b9b436;
+    border-color: #cbb353; /* Rosa para el focus */
+    box-shadow: 0 0 0 2px #cbb353;
   }
   
   .contacto textarea {
@@ -390,8 +403,9 @@ inicio {
     resize: vertical;
   }
   
+  
   .contacto button {
-    background: #ff69b4;
+    background: #cbb353;
     color: white;
     border: none;
     padding: 0.8rem 2rem; /* Ajusté el padding para hacerlo más pequeño */
@@ -408,9 +422,9 @@ inicio {
   }
   
   .contacto button:hover {
-    background: #ff1493;
+    background: #cbb353;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+    box-shadow: 0 5px 15px #cbb353;
   }
   .contacto p {
     text-align: center;
@@ -423,7 +437,7 @@ inicio {
   /* Efecto para los placeholders */
   .contacto input::placeholder,
   .contacto textarea::placeholder {
-    color: #95a5a6;
+    color: #cbb353;
     transition: all 0.3s ease;
   }
   

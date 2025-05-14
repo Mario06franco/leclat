@@ -23,6 +23,7 @@ const Inicio = () => {
   const [confirmacion, setConfirmacion] = useState('');
   const [error, setError] = useState('');
   const [mostrarCita, setMostrarCita] = useState(false);
+  const [usuario, setUsuario] = useState(null);
 
   // Objeto con arrays de imágenes para cada servicio
   const serviciosImagenes = {
@@ -76,10 +77,46 @@ const Inicio = () => {
       setError('❌ Hubo un error al enviar el mensaje.');
     }
   };
+  
+  useEffect(() => {
+  const obtenerUsuario = () => {
+    try {
+      // Obtener datos del localStorage
+      const userData = localStorage.getItem('user');
+      
+      if (!userData) {
+        console.log('No hay usuario logueado');
+        return;
+      }
+
+      const usuario = JSON.parse(userData);
+      
+      // Verificar que el objeto tenga los datos mínimos requeridos
+      if (usuario.nombre && usuario.correo) {
+        setUsuario({
+          nombre: usuario.nombre,
+          correo: usuario.correo,
+          rol: usuario.rol || 'user' // Valor por defecto
+        });
+      }
+    } catch (err) {
+      console.error('Error al parsear datos de usuario:', err);
+      // Limpiar datos inválidos
+      localStorage.removeItem('user');
+    }
+  };
+
+  obtenerUsuario();
+}, []);
 
   return (
     <div className="inicio">
       <section className="bienvenida" id="inicio">
+        {usuario && usuario.nombre && (
+  <div className="nombre-usuario">
+    Hola, {usuario.nombre.split(' ')[0]}
+  </div>
+)}
         <h1>BIENVENIDOS A L'ECLAT</h1>
         <h2>Centro Estético</h2>
         <button className="btn-principal" onClick={() => setMostrarCita(true)}>Agenda tu Cita</button>
@@ -117,21 +154,21 @@ const Inicio = () => {
               src={serviciosImagenes.faciales[currentImages.faciales]} 
               alt="Tratamiento facial" 
             />
-            <a>Tratamientos faciales</a>
+            <p>Tratamientos faciales</p>
           </Link>
           <Link to="/servicios/corporales" className="card">
             <img 
               src={serviciosImagenes.corporales[currentImages.corporales]} 
               alt="Masaje relajante" 
             />
-            <a>Tratamientos Corporales</a>
+            <p>Tratamientos Corporales</p>
           </Link>
           <Link to="/servicios/relajantes" className="card">
             <img 
               src={serviciosImagenes.relajantes[currentImages.relajantes]} 
               alt="Depilación" 
             />
-            <a>Tratamientos Relajantes</a>
+            <p>Tratamientos Relajantes</p>
           </Link>
         </div>
       </section>

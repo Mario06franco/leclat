@@ -12,9 +12,9 @@ function Navbar({ user, onLoginClick, onLogout }) {
         </Link>
         <nav>
           <ul className="nav-links">
-            <li><Link to="/">Inicio</Link></li>
-            <li><Link to="/QuienesSomos">Nosotros</Link></li>
-            <li><Link to="/servicios">Servicios</Link></li>
+            <li><Link to="/">INICIO</Link></li>
+            <li><Link to="/QuienesSomos">NOSOTROS</Link></li>
+            <li><Link to="/servicios">SERVICIOS</Link></li>
             <li>
               {user ? (
                 <button onClick={onLogout}>Cerrar sesión</button>

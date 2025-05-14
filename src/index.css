@@ -29,7 +29,7 @@ p,  input, textarea, select, button, .font-textos {
   --gris-claro: #777;
   --blanco: #ffffff;
   --fondo: #f6e6e3;
-  --fuente-principal: 'Arial', sans-serif;
+ 
 }
 
 * {
@@ -40,7 +40,7 @@ p,  input, textarea, select, button, .font-textos {
 
 body {
   font-family: var(--fuente-principal);
-  background-color: #f4f4dc;
+  background-color: #f8f5e9;
   color: var(--gris-oscuro);
   line-height: 1.5;
   min-height: 100vh;
@@ -49,7 +49,7 @@ body {
 
 /* Enlaces generales */
 a {
-  color:#b9b436;
+  color:#cbb353;
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 20px;
@@ -67,7 +67,7 @@ h1, h2, h3 {
 
 /* Botones globales */
 button {
-  background-color: var(--rosa-principal);
+  background-color: #cbb353 ;
   color: var(--blanco);
   padding: 10px 20px;
   border: none;

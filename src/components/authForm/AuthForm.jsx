@@ -67,35 +67,48 @@ function AuthForm({ onClose }) {
     }
   };
 
-  const loginUser = async (loginData) => {
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, loginData); // Captura la respuesta correctamente
-  
-      const { user, token } = response.data;
-  
-      const usuario = {
-        nombre: user.nombre,
-        correo: user.correo,
-        cedula: user.cedula,
-        rol: user.rol,
-        token
-      };
-  
-      setUsuario(usuario);
-      localStorage.setItem('user', JSON.stringify(usuario));
-      localStorage.setItem('userToken', token);
-  
-      if (recuerdame) {
-        localStorage.setItem('recuerdame', 'true');
-      }
-  
-      alert('✅ Inicio de sesión exitoso');
-      onClose();
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError(`❌ ${error.response?.data?.message || 'Error en el servidor'}`);
+const loginUser = async (loginData) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, loginData);
+    
+    // Asegúrate que la respuesta tenga la estructura correcta
+    if (!response.data.user || !response.data.token) {
+      throw new Error('Estructura de respuesta inválida');
     }
-  };
+
+    const { user, token } = response.data;
+
+    // Crear objeto de usuario normalizado
+    const usuario = {
+      nombre: user.nombre,
+      correo: user.correo,
+      cedula: user.cedula,
+      rol: user.rol,
+      token
+    };
+
+    // Guardar en estado y almacenamiento local
+    setUsuario(usuario);
+    localStorage.setItem('user', JSON.stringify(usuario));
+    
+    // Eliminar el token duplicado (no es necesario si ya está en el objeto user)
+    localStorage.removeItem('userToken');
+
+    if (recuerdame) {
+      localStorage.setItem('recuerdame', 'true');
+    }
+
+    alert('✅ Inicio de sesión exitoso');
+    onClose();
+    
+    // Redirigir al usuario después del login
+    window.location.href = '/'; // O usa navigate('/') si estás usando react-router
+
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    setError(`❌ ${error.response?.data?.message || error.message || 'Error en el servidor'}`);
+  }
+};
 
   return (
     <div className="modal-auth">
