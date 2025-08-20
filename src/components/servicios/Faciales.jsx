@@ -9,46 +9,48 @@ const Faciales = () => {
 
   useEffect(() => {
     const fetchServicios = async () => {
-      try {
-        const response = await axios.get('/api/servicios', {
-          params: {
-            categoria: 'facial',
-            activo: true
-          }
-        });
-        
-        console.log('Respuesta de la API:', response.data);
-        
-        let serviciosData = [];
-        
-        if (Array.isArray(response.data)) {
-          serviciosData = response.data;
-        } else if (response.data && Array.isArray(response.data.data)) {
-          serviciosData = response.data.data;
-        } else if (response.data && response.data.success && Array.isArray(response.data.result)) {
-          serviciosData = response.data.result;
-        } else {
-          throw new Error('Formato de respuesta no reconocido');
-        }
-        
-        serviciosData = serviciosData.filter(servicio => servicio.activo !== false);
-        
-        setServicios(serviciosData);
-        setError(null);
-      } catch (err) {
-        setError(err.response?.data?.message || err.message || 'Error al cargar servicios');
-        setServicios([]);
-      } finally {
-        setLoading(false);
+  try {
+    // Usa la URL base del backend desde import.meta.env
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
+
+    const response = await axios.get(`${baseURL}/api/servicios`, {
+      params: {
+        categoria: 'facial',
+        activo: true
       }
-    };
-  
+    });
+
+    console.log('Respuesta de la API:', response.data);
+
+    let serviciosData = [];
+
+    if (Array.isArray(response.data)) {
+      serviciosData = response.data;
+    } else if (response.data && Array.isArray(response.data.data)) {
+      serviciosData = response.data.data;
+    } else if (response.data && response.data.success && Array.isArray(response.data.result)) {
+      serviciosData = response.data.result;
+    } else {
+      throw new Error('Formato de respuesta no reconocido');
+    }
+
+    serviciosData = serviciosData.filter(servicio => servicio.activo !== false);
+
+    setServicios(serviciosData);
+    setError(null);
+  } catch (err) {
+    setError(err.response?.data?.message || err.message || 'Error al cargar servicios');
+    setServicios([]);
+  } finally {
+    setLoading(false);
+  }
+};
     fetchServicios();
   }, []);
 
   // Función para construir la URL completa de la imagen
   const getImageUrl = (imagePath) => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    
     
     if (!imagePath) return '/img/servicio-default.jpg';
     
@@ -58,7 +60,7 @@ const Faciales = () => {
     }
     
     // Si es una ruta relativa, asumimos que está en /uploads/
-    return `${backendUrl}${imagePath}`;
+    return `${import.meta.env.VITE_BACKEND_URL}${imagePath}`;
   };
 
   if (loading) {
@@ -106,7 +108,7 @@ const Faciales = () => {
             <div className="servicio-imagen-container">
               <img 
                 src={getImageUrl(servicio.imagen)} 
-                alt={servicio.nombre} 
+                
                 className="servicio-imagen"
                 onError={(e) => {
                   e.target.onerror = null; 

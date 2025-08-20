@@ -30,6 +30,7 @@ import UsuariosAdmin from './components/admin/usuarios/UsuariosAdmin';
 import CitasAdmin from './components/admin/CitasAdmin';
 import HistoriasAdmin from './components/admin/historias/HistoriasClinicasAdmin';
 import ServiciosAdmin from './components/admin/servicios/servicios';
+import ResetPassword from './components/password/ResetPassword';
 
 function App() {
   const { usuario, setUsuario } = useUser();
@@ -97,7 +98,7 @@ function App() {
           <Route path="/servicios/corporales" element={<Corporales />} />
           <Route path="/servicios/capilares" element={<Capilares />} />
           <Route path="/servicios/sueroterapia" element={<Sueroterapia />} />
-
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           {/* Rutas de administración */}
           {usuario?.rol === 'admin' && (
             <Route path="/admin" element={<AdminLayout />}>

@@ -51,7 +51,7 @@ select {
 
 label {
     font-size: 0.9rem;
-    display: flex
+   
 ;
     align-items: center;
     color: var(--leclat-dark);

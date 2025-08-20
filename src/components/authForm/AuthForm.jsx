@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './AuthForm.css';
 import axios from 'axios';
-import { useUser } from '../../context/UserContext'; // Importa el contexto
+import { useUser } from '../../context/UserContext';
 
 function AuthForm({ onClose }) {
-  const { setUsuario } = useUser(); // Obtiene setUsuario del contexto
+  const { setUsuario } = useUser();
   const [isRegister, setIsRegister] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [nombre, setNombre] = useState('');
   const [cedula, setCedula] = useState('');
   const [correo, setCorreo] = useState('');
@@ -67,48 +68,175 @@ function AuthForm({ onClose }) {
     }
   };
 
-const loginUser = async (loginData) => {
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, loginData);
-    
-    // Asegúrate que la respuesta tenga la estructura correcta
-    if (!response.data.user || !response.data.token) {
-      throw new Error('Estructura de respuesta inválida');
+  const loginUser = async (loginData) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, loginData);
+      
+      if (!response.data.user || !response.data.token) {
+        throw new Error('Estructura de respuesta inválida');
+      }
+
+      const { user, token } = response.data;
+
+      const usuario = {
+        nombre: user.nombre,
+        correo: user.correo,
+        cedula: user.cedula,
+        rol: user.rol,
+        token
+      };
+
+      setUsuario(usuario);
+      localStorage.setItem('user', JSON.stringify(usuario));
+      localStorage.removeItem('userToken');
+
+      if (recuerdame) {
+        localStorage.setItem('recuerdame', 'true');
+      }
+
+      alert('✅ Inicio de sesión exitoso');
+      onClose();
+      
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      setError(`❌ ${error.response?.data?.message || error.message || 'Error en el servidor'}`);
     }
+  };
 
-    const { user, token } = response.data;
+  // Componente de recuperación de contraseña
+  const ForgotPassword = ({ onBackToLogin, onClose }) => {
+    const [identifier, setIdentifier] = useState('');
+    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    // Crear objeto de usuario normalizado
-    const usuario = {
-      nombre: user.nombre,
-      correo: user.correo,
-      cedula: user.cedula,
-      rol: user.rol,
-      token
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      // Validación básica
+      if (!identifier.trim()) {
+        setMessage('❌ Por favor ingresa tu cédula o correo electrónico');
+        return;
+      }
+      
+      setIsLoading(true);
+      setMessage('');
+      
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/forgot-password`,
+          { identifier },
+          {
+            timeout: 10000,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        
+        console.log('Respuesta del servidor:', response.data);
+        
+        // Manejar la respuesta según la estructura del backend
+        if (response.data.success) {
+          setSuccess(true);
+          setMessage('✅ ' + response.data.message);
+          
+          // Mostrar información de desarrollo si existe
+          if (response.data.developmentInfo) {
+            console.log('🔗 Enlace de desarrollo:', response.data.developmentInfo.resetUrl);
+            setMessage(prev => prev + `\n🔗 Enlace de prueba: ${response.data.developmentInfo.resetUrl}`);
+          }
+          
+          // Cerrar después de 5 segundos solo si fue exitoso
+          setTimeout(() => {
+            onClose();
+          }, 5000);
+        } else {
+          setMessage('❌ ' + (response.data.message || 'Error al procesar la solicitud'));
+        }
+        
+      } catch (error) {
+        console.error('Error completo:', error);
+        
+        // Manejo detallado de errores
+        if (error.response) {
+          // El servidor respondió con un código de error
+          if (error.response.status === 400) {
+            setMessage('❌ ' + (error.response.data.message || 'Datos inválidos'));
+          } else if (error.response.status === 500) {
+            setMessage('❌ Error interno del servidor. Intenta más tarde.');
+          } else if (error.response.data?.message) {
+            setMessage('❌ ' + error.response.data.message);
+          } else {
+            setMessage('❌ Error del servidor: ' + error.response.status);
+          }
+        } else if (error.request) {
+          // La solicitud fue hecha pero no hubo respuesta
+          setMessage('❌ No se pudo conectar con el servidor. Verifica tu conexión.');
+        } else if (error.code === 'ECONNABORTED') {
+          setMessage('❌ Tiempo de espera agotado. Intenta nuevamente.');
+        } else {
+          // Error inesperado
+          setMessage('❌ Error inesperado. Intenta nuevamente.');
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    // Guardar en estado y almacenamiento local
-    setUsuario(usuario);
-    localStorage.setItem('user', JSON.stringify(usuario));
-    
-    // Eliminar el token duplicado (no es necesario si ya está en el objeto user)
-    localStorage.removeItem('userToken');
+    return (
+      <div className="modal-auth">
+        <div className="auth-container">
+          <button className="btn-close" onClick={onBackToLogin}>✕</button>
+          
+          <div className="auth-toggle">
+            <div className="highlight" style={{ left: '0%' }}></div>
+            <span style={{ cursor: 'default' }}>Recuperar Contraseña</span>
+            <span style={{ visibility: 'hidden' }}>Placeholder</span>
+          </div>
 
-    if (recuerdame) {
-      localStorage.setItem('recuerdame', 'true');
-    }
+          <form className="form" onSubmit={handleSubmit}>
+            <h2>Recuperar Contraseña</h2>
+            <p>Ingresa tu cédula o correo electrónico para restablecer tu contraseña.</p>
 
-    alert('✅ Inicio de sesión exitoso');
-    onClose();
-    
-    // Redirigir al usuario después del login
-    window.location.href = '/'; // O usa navigate('/') si estás usando react-router
+            <input
+              type="text"
+              placeholder="Cédula o correo electrónico"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              required
+              disabled={isLoading}
+            />
 
-  } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-    setError(`❌ ${error.response?.data?.message || error.message || 'Error en el servidor'}`);
+            {message && (
+              <div className={`message ${success ? 'success' : 'error'}`} 
+                   style={{ whiteSpace: 'pre-line', margin: '15px 0' }}>
+                {message}
+              </div>
+            )}
+
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Enviando...' : 'Enviar enlace de recuperación'}
+            </button>
+          </form>
+
+          <button className="back-button" onClick={onBackToLogin} disabled={isLoading}>
+            Volver al login
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  if (showForgotPassword) {
+    return (
+      <ForgotPassword 
+        onBackToLogin={() => setShowForgotPassword(false)}
+        onClose={onClose}
+      />
+    );
   }
-};
 
   return (
     <div className="modal-auth">
@@ -174,7 +302,7 @@ const loginUser = async (loginData) => {
           />
 
           {!isRegister && (
-            <label>
+            <label className="checkbox-label">
               <input
                 type="checkbox"
                 checked={recuerdame}
@@ -185,25 +313,29 @@ const loginUser = async (loginData) => {
           )}
 
           {isRegister && (
-            <label>
+            <label className="checkbox-label">
               <input type="checkbox" required />
               Acepta los <a href="#">Términos y Condiciones</a>
             </label>
           )}
 
-          {error && <p style={{ color: 'pink' }}>{error}</p>}
+          {error && <div className="error-message">{error}</div>}
 
           <button type="submit">{isRegister ? 'Registrar' : 'Entrar'}</button>
         </form>
 
-        <div className="social-login">
-          <p>O ingresa con</p>
-          <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook-f"></i></a>
-            <a href="#"><i className="fab fa-google"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
+        {!isRegister && (
+          <div className="forgot-password-link">
+            <a href="#" onClick={(e) => {
+              e.preventDefault();
+              setShowForgotPassword(true);
+            }}>
+              ¿Olvidaste tu contraseña?
+            </a>
           </div>
-        </div>
+        )}
+
+        
       </div>
     </div>
   );

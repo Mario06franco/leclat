@@ -12,7 +12,7 @@ const CrearServicioModal = ({ show, onClose, onCreate }) => {
     frecuencia_recomendada: '',
     duracion: '',
     contraindicaciones: '',
-    categoria: 'facial'
+    categoria: ''
   });
   
   const [imagen, setImagen] = useState(null);
