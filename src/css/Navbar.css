@@ -30,6 +30,7 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+  overflow: hidden;
 }
 
 /* Logo dentro de la navbar */

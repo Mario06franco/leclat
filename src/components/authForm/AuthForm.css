@@ -20,7 +20,7 @@
 .auth-container {
   position: relative;
   width: 400px;
-  background: var(--leclat-bg);
+  background: #f8f5e9;
   border-radius: 25px;
   padding: 40px 30px;
   color: var(--leclat-dark);
@@ -53,7 +53,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 50%;
   height: 100%;
   background-color: white;
   border-radius: 30px;
@@ -73,7 +73,7 @@
     border-radius: 8px;
     cursor: pointer;
     z-index: 3;
-    width: 49px;
+    width: 56px;
     height: 38px;
 }
 
@@ -95,6 +95,8 @@ input[type="password"] {
   padding: 10px;
   color: var(--leclat-dark);
   outline: none;
+  border: 1px solid #cbb353;
+  font-size: 1rem;
 }
 
 input::placeholder {
@@ -131,6 +133,19 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #fce2ea;
+}
+
+.back-button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background-color: #cbb353;
+  color: #cbb353;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .social-login {

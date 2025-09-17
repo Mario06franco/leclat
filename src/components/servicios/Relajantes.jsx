@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ServicioDetalle.css';
 
-const Corporales = () => {
+const Relajantes = () => {
   const [servicios, setServicios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,11 +10,12 @@ const Corporales = () => {
   useEffect(() => {
     const fetchServicios = async () => {
       try {
+        // Usa la URL base del backend desde import.meta.env
         const baseURL = import.meta.env.VITE_BACKEND_URL;
 
         const response = await axios.get(`${baseURL}/api/servicios`, {
           params: {
-            categoria: 'corporal', // Filtro por categoría corporal
+            categoria: 'relajante', // Cambiado a 'relajante'
             activo: true
           }
         });
@@ -23,7 +24,6 @@ const Corporales = () => {
 
         let serviciosData = [];
 
-        // Manejo de diferentes formatos de respuesta
         if (Array.isArray(response.data)) {
           serviciosData = response.data;
         } else if (response.data && Array.isArray(response.data.data)) {
@@ -34,17 +34,17 @@ const Corporales = () => {
           throw new Error('Formato de respuesta no reconocido');
         }
 
-        // Filtro adicional para asegurar que solo sean servicios activos y corporales
+        // Filtro adicional para relajantes
         serviciosData = serviciosData.filter(servicio => 
           servicio.activo !== false && 
           servicio.categoria && 
-          servicio.categoria.toLowerCase() === 'corporal'
+          servicio.categoria.toLowerCase() === 'relajante'
         );
 
         setServicios(serviciosData);
         setError(null);
       } catch (err) {
-        setError(err.response?.data?.message || err.message || 'Error al cargar servicios corporales');
+        setError(err.response?.data?.message || err.message || 'Error al cargar servicios');
         setServicios([]);
       } finally {
         setLoading(false);
@@ -58,10 +58,12 @@ const Corporales = () => {
   const getImageUrl = (imagePath) => {
     if (!imagePath) return '/img/servicio-default.jpg';
     
+    // Si la imagen ya es una URL completa
     if (imagePath.startsWith('http') || imagePath.startsWith('https') || imagePath.startsWith('data:')) {
       return imagePath;
     }
     
+    // Si es una ruta relativa, asumimos que está en /uploads/
     return `${import.meta.env.VITE_BACKEND_URL}${imagePath}`;
   };
 
@@ -69,7 +71,7 @@ const Corporales = () => {
     return (
       <section className="servicios-loading">
         <div className="spinner"></div>
-        <p>Cargando tratamientos corporales...</p>
+        <p>Cargando tratamientos relajantes...</p>
       </section>
     );
   }
@@ -88,19 +90,20 @@ const Corporales = () => {
   if (!Array.isArray(servicios) || servicios.length === 0) {
     return (
       <section className="servicios-vacio">
-        <p>Actualmente no hay tratamientos corporales disponibles.</p>
+        <p>Actualmente no hay tratamientos relajantes disponibles.</p>
         <p>Por favor consulta nuevamente más tarde.</p>
       </section>
     );
   }
 
   return (
-    <section className="tratamientos-corporales">
+    <section className="tratamientos-relajantes">
       <div className="servicio-header">
-        <h1>Tratamientos Corporales</h1>
+        <h1>Tratamientos Relajantes</h1>
         <p className="servicio-intro">
-          Nuestros tratamientos corporales están diseñados para moldear, tonificar y rejuvenecer tu cuerpo.
-          Utilizamos tecnología avanzada y técnicas especializadas para ayudarte a alcanzar tus objetivos estéticos.
+          Nuestros tratamientos relajantes están diseñados para liberar el estrés, tensiones musculares 
+          y promover un estado de bienestar total. Disfruta de una experiencia de relax y rejuvenecimiento 
+          con nuestras técnicas especializadas.
         </p>
       </div>
 
@@ -129,27 +132,25 @@ const Corporales = () => {
                 <span className="servicio-duracion">
                   <i className="icono-reloj"></i> {servicio.duracion || 'N/A'} minutos
                 </span>
-                {servicio.frecuencia_recomendada && (
-                  <span className="servicio-frecuencia">
-                    <i className="icono-calendario"></i> {servicio.frecuencia_recomendada}
-                  </span>
-                )}
+                <span className="servicio-frecuencia">
+                  <i className="icono-calendario"></i> {servicio.frecuencia_recomendada || 'Consulta frecuencia'}
+                </span>
               </div>
               
               <div className="servicio-descripcion">
                 <h3>Descripción del tratamiento</h3>
-                <p>{servicio.descripcion || 'Descripción no disponible'}</p>
+                <p>{servicio.descripcion}</p>
               </div>
               
               <div className="servicio-detalles">
                 <div className="detalle-item">
-                  <h4><i className="icono-info"></i> Indicaciones</h4>
-                  <p>{servicio.indicaciones || 'Ninguna indicación especial'}</p>
+                  <h4><i className="icono-info"></i> Beneficios</h4>
+                  <p>{servicio.indicaciones || 'Relajación profunda y alivio del estrés'}</p>
                 </div>
                 
                 <div className="detalle-item">
-                  <h4><i className="icono-alerta"></i> Contraindicaciones</h4>
-                  <p>{servicio.contraindicaciones || 'Ninguna contraindicación importante'}</p>
+                  <h4><i className="icono-alerta"></i> Recomendaciones</h4>
+                  <p>{servicio.contraindicaciones || 'Ideal para personas con altos niveles de estrés'}</p>
                 </div>
               </div>
               
@@ -164,4 +165,4 @@ const Corporales = () => {
   );
 };
 
-export default Corporales;
+export default Relajantes;

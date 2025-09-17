@@ -5,7 +5,7 @@ const PlantillaHistoriaPDF = forwardRef(({ historia }, ref) => {
 
   return (
     <div ref={ref} style={{ padding: 20, width: '210mm', backgroundColor: 'white', fontSize: 12 }}>
-      <h2 style={{ textAlign: 'center' }}>EXPEDIENTE CLÍNICO-ESTÉTICO DEL PACIENTE</h2>
+      <h2 style={{ textAlign: 'center' }}>HISTORIA CLÍNICO-ESTÉTICA DEL PACIENTE</h2>
 
       <h3>DATOS GENERALES</h3>
       <p><strong>Nombre:</strong> {datos.datosGenerales?.nombreCompleto}</p>
@@ -14,6 +14,7 @@ const PlantillaHistoriaPDF = forwardRef(({ historia }, ref) => {
       <p><strong>Ocupación:</strong> {datos.datosGenerales?.ocupacion}</p>
       <p><strong>Teléfono:</strong> {datos.datosGenerales?.telefono}</p>
       <p><strong>Correo:</strong> {datos.datosGenerales?.correo}</p>
+      <p><strong>Motivo de la consulta:</strong> {datos.datosGenerales?.motivo || '—'}</p> {/* ← NUEVO CAMPO AGREGADO */}
 
       <h3>HISTORIAL CLÍNICO</h3>
       <p><strong>Afecciones cutáneas:</strong> {datos.historialClinico?.afeccionesCutaneas?.join(', ') || '—'}</p>
@@ -38,14 +39,23 @@ const PlantillaHistoriaPDF = forwardRef(({ historia }, ref) => {
       <p><strong>Frecuencia limpieza facial:</strong> {datos.cuidadoFacialActual?.frecuenciaLimpiezaFacial}</p>
       <p><strong>Productos actuales:</strong> {datos.cuidadoFacialActual?.productosActuales?.join(', ') || '—'}</p>
       <p><strong>Rutina diaria:</strong> {datos.cuidadoFacialActual?.rutinaDiaria?.join(', ') || '—'}</p>
+
       <h3>DIAGNÓSTICO FACIAL</h3>
       <p><strong>Tipo de piel:</strong> {datos.diagnosticoFacial?.tipoPiel}</p>
+      <p><strong>Observación visual:</strong> {datos.diagnosticoFacial?.observacionVisual?.join(', ') || '—'}</p>
+      <p><strong>Observación lámpara de Wood:</strong> {datos.diagnosticoFacial?.observacionLamparaWood?.join(', ') || '—'}</p>
+      <p><strong>Observación táctil:</strong> {datos.diagnosticoFacial?.observacionTactil?.join(', ') || '—'}</p>
 
       <h3>PLAN DE TRATAMIENTO</h3>
       <p><strong>Diagnóstico final:</strong> {datos.planTratamiento?.diagnosticoFinal}</p>
       <p><strong>Tratamiento recomendado:</strong> {datos.planTratamiento?.tratamientoRecomendado}</p>
       <p><strong>Frecuencia sugerida:</strong> {datos.planTratamiento?.frecuenciaSugerida}</p>
       <p><strong>Número de sesiones:</strong> {datos.planTratamiento?.numSesiones}</p>
+      <p><strong>Aparatología/Técnicas:</strong> {datos.planTratamiento?.aparatologia?.join(', ') || '—'}</p>
+
+      <div style={{ marginTop: '30px', textAlign: 'center', fontSize: '10px' }}>
+        <p>Documento generado el: {new Date().toLocaleDateString()}</p>
+      </div>
     </div>
   );
 });

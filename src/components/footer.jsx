@@ -54,11 +54,11 @@ const Footer = () => {
             <div className="footer-socials">
               <a href=""><i className="fab fa-facebook-f facebook"></i></a>
               <a href="https://www.instagram.com/leclat.centroestetico/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram instagram"></i></a>
-              <a href="#"><i className="fab fa-whatsapp whatsapp"></i></a>
+              <a href="https://wa.link/u1a4f4"><i className="fab fa-whatsapp whatsapp"></i></a>
               <a href="#"><i className="fab fa-tiktok tiktok"></i></a>
             </div>
-          </div>
-        </div>
+          </div>    
+        </div> 
       </div>
       <div className="footer-copy">
         <p>2025 © Leclat, Todos los derechos reservados</p>

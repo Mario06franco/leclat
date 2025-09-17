@@ -1,8 +1,6 @@
 import React, {useEffect ,useState } from 'react';
 import './CrearHistoriaClinica.css';
 
-
-
 const getInitialFormData = (data) => {
   if (data && data.datosGenerales) {
     return {
@@ -16,6 +14,8 @@ const getInitialFormData = (data) => {
       ...data.cuidadoFacialActual,
       ...data.diagnosticoFacial,
       ...data.planTratamiento,
+      // Asegurar que motivo esté disponible
+      motivo: data.motivo || ''
     };
   }
   return {
@@ -25,6 +25,7 @@ const getInitialFormData = (data) => {
     ocupacion: '',
     telefono: '',
     correo: '',
+    motivo: '', // ← NUEVO CAMPO MOTIVO
     afeccionesCutaneas: [],
     enfermedadesCronicas: [],
     alergias: '',
@@ -67,7 +68,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
     setFormData(getInitialFormData(data));
   }, [data]);
 
-  // Cambia el nombre de handleChange a handleInputChange o actualiza las referencias
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -101,6 +101,7 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
           ocupacion: formData.ocupacion,
           telefono: formData.telefono,
           correo: formData.correo,
+          motivo: formData.motivo || '', // ← MOTIVO INCLUIDO EN DATOS GENERALES
         },
         historialClinico: {
           afeccionesCutaneas: formData.afeccionesCutaneas || [],
@@ -161,11 +162,16 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
           delete dataToSend[key];
         }
       });
-  
+
+      // CORREGIR LA URL - arreglando el error
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
       const url = formData._id
-        ? `${import.meta.env.VITE_BACKEND_URL}/api/historias/${formData._id}`
-        : '${backendUrl}/api/historias';
+        ? `${backendUrl}/api/historias/${formData._id}`
+        : `${backendUrl}/api/historias`;
+      
       const method = formData._id ? 'PUT' : 'POST';
+  
+      console.log('Enviando datos:', dataToSend); // Para verificar que motivo esté incluido
   
       const response = await fetch(url, {
         method,
@@ -178,7 +184,7 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
       
       console.log('Raw response:', response);
       
-      const result = await response.text(); // Cambia a .text() temporalmente para inspeccionar la respuesta
+      const result = await response.text();
       console.log('Response body:', result);
       
       if (!response.ok) {
@@ -206,7 +212,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
     return edad;
   };
 
-  // Asegúrate de que todos los inputs usen handleInputChange en lugar de handleChange
   return (
     <div className="modal-overlay">
       <div className="modal-container">
@@ -230,7 +235,7 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                   type="text"
                   name="nombreCompleto"
                   value={formData.nombreCompleto || ''}
-                  onChange={handleInputChange} //Cambiado a handleInputChange 
+                  onChange={handleInputChange}
                 />
                 <label>Edad</label>
                 <input
@@ -266,6 +271,16 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                   name="correo"
                   value={formData.correo || ''}
                   onChange={handleInputChange}
+                />
+                {/* NUEVO CAMPO MOTIVO */}
+                <label>Motivo de la consulta *</label>
+                <textarea
+                  name="motivo"
+                  value={formData.motivo || ''}
+                  onChange={handleInputChange}
+                  placeholder="Describa el motivo principal de la consulta"
+                  rows="3"
+                  required
                 />
               </div>
             </div>
@@ -341,7 +356,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                     value="otra"
                     onChange={handleCheckboxChange}
                   /> otra
-                  {/* Add more conditions as per the list */}
                 </div>
                 <label>Enfermedades crónicas</label>
                 <div>
@@ -387,7 +401,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                     value="Otra:"
                     onChange={handleCheckboxChange}
                   /> Otra
-                  {/* Add more conditions as per the list */}
                 </div>
                 <label>Alergias </label>
                 <input
@@ -694,7 +707,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                     value="VI"
                     onChange={handleInputChange}
                   /> VI
-                  {/* Add more options */}
                 </div>
                 <label>Biotipo cutáneo</label>
                 <div>
@@ -728,7 +740,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                     value="Sensible/Reactiva"
                     onChange={handleInputChange}
                   /> Sensible/Reactiva
-                  {/* Add more options */}
                 </div>
                 <label>Observación visual (luz blanca)</label>
                 <div>
@@ -780,7 +791,6 @@ const CrearHistoriaClinica = ({ data = {}, onClose, onGuardado }) => {
                     value="Arrugas finas"
                     onChange={handleCheckboxChange}
                   /> Arrugas finas
-                  {/* Add more options */}
                 </div>
                 <label>Observación con lámpara de Wood</label>
                 <div>

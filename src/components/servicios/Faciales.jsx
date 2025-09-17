@@ -9,49 +9,53 @@ const Faciales = () => {
 
   useEffect(() => {
     const fetchServicios = async () => {
-  try {
-    // Usa la URL base del backend desde import.meta.env
-    const baseURL = import.meta.env.VITE_BACKEND_URL;
+      try {
+        // Usa la URL base del backend desde import.meta.env
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-    const response = await axios.get(`${baseURL}/api/servicios`, {
-      params: {
-        categoria: 'facial',
-        activo: true
+        const response = await axios.get(`${baseURL}/api/servicios`, {
+          params: {
+            categoria: 'facial', // Asegúrate que este valor coincida con tu base de datos
+            activo: true
+          }
+        });
+
+        console.log('Respuesta de la API:', response.data);
+
+        let serviciosData = [];
+
+        if (Array.isArray(response.data)) {
+          serviciosData = response.data;
+        } else if (response.data && Array.isArray(response.data.data)) {
+          serviciosData = response.data.data;
+        } else if (response.data && response.data.success && Array.isArray(response.data.result)) {
+          serviciosData = response.data.result;
+        } else {
+          throw new Error('Formato de respuesta no reconocido');
+        }
+
+        // Filtro adicional por si acaso (aunque el backend debería filtrar)
+        serviciosData = serviciosData.filter(servicio => 
+          servicio.activo !== false && 
+          servicio.categoria && 
+          servicio.categoria.toLowerCase() === 'facial'
+        );
+
+        setServicios(serviciosData);
+        setError(null);
+      } catch (err) {
+        setError(err.response?.data?.message || err.message || 'Error al cargar servicios');
+        setServicios([]);
+      } finally {
+        setLoading(false);
       }
-    });
-
-    console.log('Respuesta de la API:', response.data);
-
-    let serviciosData = [];
-
-    if (Array.isArray(response.data)) {
-      serviciosData = response.data;
-    } else if (response.data && Array.isArray(response.data.data)) {
-      serviciosData = response.data.data;
-    } else if (response.data && response.data.success && Array.isArray(response.data.result)) {
-      serviciosData = response.data.result;
-    } else {
-      throw new Error('Formato de respuesta no reconocido');
-    }
-
-    serviciosData = serviciosData.filter(servicio => servicio.activo !== false);
-
-    setServicios(serviciosData);
-    setError(null);
-  } catch (err) {
-    setError(err.response?.data?.message || err.message || 'Error al cargar servicios');
-    setServicios([]);
-  } finally {
-    setLoading(false);
-  }
-};
+    };
+    
     fetchServicios();
   }, []);
 
   // Función para construir la URL completa de la imagen
   const getImageUrl = (imagePath) => {
-    
-    
     if (!imagePath) return '/img/servicio-default.jpg';
     
     // Si la imagen ya es una URL completa
@@ -108,7 +112,7 @@ const Faciales = () => {
             <div className="servicio-imagen-container">
               <img 
                 src={getImageUrl(servicio.imagen)} 
-                
+                alt={servicio.nombre}
                 className="servicio-imagen"
                 onError={(e) => {
                   e.target.onerror = null; 
@@ -116,7 +120,7 @@ const Faciales = () => {
                 }}
               />
               <div className="servicio-precio-tag">
-                ${servicio.precio.toLocaleString()}
+                ${servicio.precio?.toLocaleString() || '0'}
               </div>
             </div>
             
@@ -125,7 +129,7 @@ const Faciales = () => {
               
               <div className="servicio-meta">
                 <span className="servicio-duracion">
-                  <i className="icono-reloj"></i> {servicio.duracion} minutos
+                  <i className="icono-reloj"></i> {servicio.duracion || 'N/A'} minutos
                 </span>
                 <span className="servicio-frecuencia">
                   <i className="icono-calendario"></i> {servicio.frecuencia_recomendada || 'Consulta frecuencia'}

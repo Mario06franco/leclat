@@ -38,56 +38,65 @@ const AgendarCita = ({ onClose }) => {
   }, [fecha]);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!fecha || !hora || !servicio) {
-    setMensaje('Selecciona fecha, hora y servicio');
-    return;
-  }
-
-  try {
-    // Verificar disponibilidad
-    const verificar = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar`, {
-      params: { fecha, hora }
-    });
-
-    if (verificar.data.existe) {
-      setMensaje('❌ Esta hora ya está ocupada');
+    if (!fecha || !hora || !servicio) {
+      setMensaje('Selecciona fecha, hora y servicio');
       return;
     }
 
-    // Preparar datos según el modelo
-    const citaData = {
-      nombre: user?.nombre || 'Nombre no proporcionado',
-      cedula: user?.cedula || 'Sin cédula',
-      fecha: typeof fecha === 'string' ? fecha : fecha.toISOString().split('T')[0], // Formato YYYY-MM-DD
-      hora,
-      servicio: typeof servicio === 'string' ? servicio : servicio._id || servicio.nombre,
-      limitacion: tieneLimitacion ? limitacionTexto : undefined, // undefined en lugar de string vacío
-      // userId: user?.cedula || user?.email // Opcional: eliminar o descomentar según necesidad
-    };
+    try {
+      const verificar = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/citas/verificar`, {
+        params: { fecha, hora }
+      });
 
-    console.log('Datos a enviar:', citaData);
+      if (verificar.data.existe) {
+        setMensaje('❌ Esta hora ya está ocupada');
+        return;
+      }
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/citas/agendar`,
-      citaData
-    );
+      const citaData = {
+        nombre: user?.nombre || 'Nombre no proporcionado',
+        cedula: user?.cedula || 'Sin cédula',
+        fecha: typeof fecha === 'string' ? fecha : fecha.toISOString().split('T')[0],
+        hora,
+        servicio: typeof servicio === 'string' ? servicio : servicio._id || servicio.nombre,
+        limitacion: tieneLimitacion ? limitacionTexto : undefined,
+      };
 
-    setMensaje('✅ Cita agendada con éxito');
-    setTimeout(() => onClose(), 2000);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/citas/agendar`,
+        citaData
+      );
 
-  } catch (error) {
-    console.error('Error completo:', error.response?.data || error);
-    setMensaje(`❌ ${error.response?.data?.error || 'Error al agendar la cita'}`);
-  }
-};
+      setMensaje('✅ Cita agendada con éxito');
+      setTimeout(() => onClose(), 2000);
+    } catch (error) {
+      console.error('Error completo:', error.response?.data || error);
+      setMensaje(`❌ ${error.response?.data?.error || 'Error al agendar la cita'}`);
+    }
+  };
+
+  // Mostrar modal si no hay usuario autenticado
   if (!user) {
     return (
       <div className="modal-auth">
-        <div className="modal-content">
+        <div className="modal-content auth-modal">
           <button className="close-button" onClick={onClose}>✕</button>
-          <p>Debes iniciar sesión o registrarte para agendar una cita.</p>
+          <h2>Inicia sesión para continuar</h2>
+          <p className="auth-message">Debes iniciar sesión o registrarte para agendar una cita.</p>
+
+          <div className="auth-buttons">
+            <button className="btn-principal" onClick={() => {
+              onClose();
+              document.dispatchEvent(new CustomEvent('abrir-modal-auth'));
+            }}>
+              Iniciar Sesión
+            </button>
+            <button className="btn-secundario" onClick={onClose}>
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
     );

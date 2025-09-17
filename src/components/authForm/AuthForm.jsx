@@ -1,42 +1,55 @@
 import React, { useState } from 'react';
 import './AuthForm.css';
-import axios from 'axios';
+import api from '../../config/axios';
 import { useUser } from '../../context/UserContext';
 
 function AuthForm({ onClose }) {
   const { setUsuario } = useUser();
   const [isRegister, setIsRegister] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [nombre, setNombre] = useState('');
-  const [cedula, setCedula] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [celular, setCelular] = useState('');
-  const [password, setPassword] = useState('');
-  const [identificador, setIdentificador] = useState('');
+  const [formData, setFormData] = useState({
+    nombre: '',
+    cedula: '',
+    correo: '',
+    celular: '',
+    password: '',
+    identificador: ''
+  });
   const [error, setError] = useState('');
   const [recuerdame, setRecuerdame] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
       if (isRegister) {
-        if (!/\S+@\S+\.\S+/.test(correo)) {
+        // Validación de email
+        if (!/\S+@\S+\.\S+/.test(formData.correo)) {
           setError('❌ Debes proporcionar un correo electrónico válido');
+          setLoading(false);
           return;
         }
 
         const userData = {
-          nombre,
-          cedula,
-          correo,
-          celular,
-          password
+          nombre: formData.nombre,
+          cedula: formData.cedula,
+          correo: formData.correo,
+          celular: formData.celular,
+          password: formData.password
         };
 
-        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/registrar`, userData);
-
+        const response = await api.post('/api/auth/registrar', userData);
         const data = response.data;
 
         const usuario = {
@@ -54,53 +67,52 @@ function AuthForm({ onClose }) {
         alert('✅ Registro exitoso');
         onClose();
       } else {
-        if (!identificador) {
+        if (!formData.identificador) {
           setError('❌ Ingresa tu cédula o correo');
+          setLoading(false);
           return;
         }
 
-        const loginData = { identificador, password };
-        await loginUser(loginData);
+        const loginData = {
+          identificador: formData.identificador,
+          password: formData.password
+        };
+
+        const response = await api.post('/api/auth/login', loginData);
+        
+        if (!response.data.user || !response.data.token) {
+          throw new Error('Estructura de respuesta inválida');
+        }
+
+        const { user, token } = response.data;
+
+        const usuario = {
+          nombre: user.nombre,
+          correo: user.correo,
+          cedula: user.cedula,
+          rol: user.rol,
+          token
+        };
+
+        setUsuario(usuario);
+        localStorage.setItem('user', JSON.stringify(usuario));
+
+        if (recuerdame) {
+          localStorage.setItem('recuerdame', 'true');
+        } else {
+          localStorage.removeItem('recuerdame');
+        }
+
+        alert('✅ Inicio de sesión exitoso');
+        onClose();
+        
+        window.location.href = '/';
       }
     } catch (err) {
-      console.error(err);
-      setError(`❌ ${err.response?.data?.message || 'Error en el servidor'}`);
-    }
-  };
-
-  const loginUser = async (loginData) => {
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, loginData);
-      
-      if (!response.data.user || !response.data.token) {
-        throw new Error('Estructura de respuesta inválida');
-      }
-
-      const { user, token } = response.data;
-
-      const usuario = {
-        nombre: user.nombre,
-        correo: user.correo,
-        cedula: user.cedula,
-        rol: user.rol,
-        token
-      };
-
-      setUsuario(usuario);
-      localStorage.setItem('user', JSON.stringify(usuario));
-      localStorage.removeItem('userToken');
-
-      if (recuerdame) {
-        localStorage.setItem('recuerdame', 'true');
-      }
-
-      alert('✅ Inicio de sesión exitoso');
-      onClose();
-      
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError(`❌ ${error.response?.data?.message || error.message || 'Error en el servidor'}`);
+      console.error('Auth error:', err);
+      setError(`❌ ${err.response?.data?.message || err.message || 'Error en el servidor'}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,7 +126,6 @@ function AuthForm({ onClose }) {
     const handleSubmit = async (e) => {
       e.preventDefault();
       
-      // Validación básica
       if (!identifier.trim()) {
         setMessage('❌ Por favor ingresa tu cédula o correo electrónico');
         return;
@@ -124,31 +135,18 @@ function AuthForm({ onClose }) {
       setMessage('');
       
       try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/auth/forgot-password`,
-          { identifier },
-          {
-            timeout: 10000,
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        );
+        const response = await api.post('/api/auth/forgot-password', { identifier });
         
         console.log('Respuesta del servidor:', response.data);
         
-        // Manejar la respuesta según la estructura del backend
         if (response.data.success) {
           setSuccess(true);
           setMessage('✅ ' + response.data.message);
           
-          // Mostrar información de desarrollo si existe
           if (response.data.developmentInfo) {
             console.log('🔗 Enlace de desarrollo:', response.data.developmentInfo.resetUrl);
-            setMessage(prev => prev + `\n🔗 Enlace de prueba: ${response.data.developmentInfo.resetUrl}`);
           }
           
-          // Cerrar después de 5 segundos solo si fue exitoso
           setTimeout(() => {
             onClose();
           }, 5000);
@@ -159,9 +157,7 @@ function AuthForm({ onClose }) {
       } catch (error) {
         console.error('Error completo:', error);
         
-        // Manejo detallado de errores
         if (error.response) {
-          // El servidor respondió con un código de error
           if (error.response.status === 400) {
             setMessage('❌ ' + (error.response.data.message || 'Datos inválidos'));
           } else if (error.response.status === 500) {
@@ -172,12 +168,10 @@ function AuthForm({ onClose }) {
             setMessage('❌ Error del servidor: ' + error.response.status);
           }
         } else if (error.request) {
-          // La solicitud fue hecha pero no hubo respuesta
           setMessage('❌ No se pudo conectar con el servidor. Verifica tu conexión.');
         } else if (error.code === 'ECONNABORTED') {
           setMessage('❌ Tiempo de espera agotado. Intenta nuevamente.');
         } else {
-          // Error inesperado
           setMessage('❌ Error inesperado. Intenta nuevamente.');
         }
       } finally {
@@ -190,12 +184,6 @@ function AuthForm({ onClose }) {
         <div className="auth-container">
           <button className="btn-close" onClick={onBackToLogin}>✕</button>
           
-          <div className="auth-toggle">
-            <div className="highlight" style={{ left: '0%' }}></div>
-            <span style={{ cursor: 'default' }}>Recuperar Contraseña</span>
-            <span style={{ visibility: 'hidden' }}>Placeholder</span>
-          </div>
-
           <form className="form" onSubmit={handleSubmit}>
             <h2>Recuperar Contraseña</h2>
             <p>Ingresa tu cédula o correo electrónico para restablecer tu contraseña.</p>
@@ -256,49 +244,61 @@ function AuthForm({ onClose }) {
             <>
               <input
                 type="text"
+                name="nombre"
                 placeholder="Nombres y apellidos"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                value={formData.nombre}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
               <input
                 type="text"
+                name="cedula"
                 placeholder="Cédula"
-                value={cedula}
-                onChange={(e) => setCedula(e.target.value)}
+                value={formData.cedula}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
               <input
                 type="text"
+                name="celular"
                 placeholder="Celular"
-                value={celular}
-                onChange={(e) => setCelular(e.target.value)}
+                value={formData.celular}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
               <input
                 type="email"
+                name="correo"
                 placeholder="Correo"
-                value={correo}
-                onChange={(e) => setCorreo(e.target.value)}
+                value={formData.correo}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
             </>
           ) : (
             <input
               type="text"
+              name="identificador"
               placeholder="Correo o Cédula"
-              value={identificador}
-              onChange={(e) => setIdentificador(e.target.value)}
+              value={formData.identificador}
+              onChange={handleInputChange}
               required
+              disabled={loading}
             />
           )}
 
           <input
             type="password"
+            name="password"
             placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleInputChange}
             required
+            disabled={loading}
           />
 
           {!isRegister && (
@@ -307,6 +307,7 @@ function AuthForm({ onClose }) {
                 type="checkbox"
                 checked={recuerdame}
                 onChange={(e) => setRecuerdame(e.target.checked)}
+                disabled={loading}
               />
               Recuérdame
             </label>
@@ -314,28 +315,36 @@ function AuthForm({ onClose }) {
 
           {isRegister && (
             <label className="checkbox-label">
-              <input type="checkbox" required />
+              <input 
+                type="checkbox" 
+                required 
+                disabled={loading}
+              />
               Acepta los <a href="#">Términos y Condiciones</a>
             </label>
           )}
 
           {error && <div className="error-message">{error}</div>}
 
-          <button type="submit">{isRegister ? 'Registrar' : 'Entrar'}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Procesando...' : (isRegister ? 'Registrar' : 'Entrar')}
+          </button>
         </form>
 
         {!isRegister && (
           <div className="forgot-password-link">
-            <a href="#" onClick={(e) => {
-              e.preventDefault();
-              setShowForgotPassword(true);
-            }}>
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                setShowForgotPassword(true);
+              }}
+              style={loading ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+            >
               ¿Olvidaste tu contraseña?
             </a>
           </div>
         )}
-
-        
       </div>
     </div>
   );

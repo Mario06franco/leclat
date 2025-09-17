@@ -162,7 +162,7 @@ const Servicios = () => {
             <img src={cuerpoImg} alt="Corporales" />
             <h2>Corporales</h2>
           </Link>
-          <Link to="/servicios/relajantes" className="categoria">
+          <Link to="/servicios/Relajantes" className="categoria">
             <img src={cabelloImg} alt="Relajantes" />
             <h2>Relajantes</h2>
           </Link>
