@@ -351,3 +351,5 @@ function AuthForm({ onClose }) {
 }
 
 export default AuthForm;
+console.log("🔧 Entorno actual:", import.meta.env.VITE_ENVIRONMENT);
+console.log("🌍 Backend URL:", import.meta.env.VITE_BACKEND_URL);
